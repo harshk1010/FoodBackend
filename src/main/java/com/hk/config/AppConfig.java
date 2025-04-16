@@ -29,7 +29,7 @@ public class AppConfig {
                         .requestMatchers("/public/**").permitAll()
                         .requestMatchers("/api/auth/**").hasAnyAuthority("RESTAURANT_OWNER", "ADMIN")
                         .requestMatchers("/api/**").authenticated()
-                        .requestMatchers(HttpMethod.OPTIONS).permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .anyRequest().permitAll()
                 )
                 .addFilterBefore(new JwtTokenValidator(), BasicAuthenticationFilter.class)
