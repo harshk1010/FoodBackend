@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -28,8 +29,7 @@ import java.util.Collections;
 public class AppConfig {
 
     @Bean
-    @Autowired
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(Authorize -> Authorize
@@ -54,16 +54,18 @@ public class AppConfig {
             public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
 
                 CorsConfiguration cfg = new CorsConfiguration();
-                    cfg.setAllowedOriginPatterns(Arrays.asList(
+                    cfg.setAllowedOrigins(Arrays.asList(
                             "http://localhost:3000",
                             "https://hk-food-psi.vercel.app"
                     ));
                 cfg.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-                cfg.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
+                cfg.setAllowedHeaders(List.of("*"));
                     cfg.setAllowCredentials(true);
                     cfg.setExposedHeaders(Arrays.asList("Authorization"));
-                    cfg.setMaxAge(3600L);
-                return cfg;
+                    
+                UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", cfg);
+        return source;
                     
             }
         };
