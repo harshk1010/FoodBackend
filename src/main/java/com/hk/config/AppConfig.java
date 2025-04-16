@@ -53,10 +53,10 @@ public class AppConfig {
             @Override
             public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
 
-                    CorsConfiguration cfg = new CorsConfiguration();
+                CorsConfiguration cfg = new CorsConfiguration();
                     cfg.setAllowedOrigins(Arrays.asList(
                             "http://localhost:3000",
-                            "https://hk-food-psi.vercel.app/"
+                            "https://hk-food-psi.vercel.app"
                     ));
                 cfg.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                 cfg.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
@@ -66,6 +66,7 @@ public class AppConfig {
                     cfg.setExposedHeaders(Arrays.asList("Authorization"));
                     cfg.setMaxAge(3600L);
                 return cfg;
+                    
             }
         };
     }
