@@ -10,7 +10,7 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**") // Apply CORS to all endpoints
-                .allowedOriginPatterns("https://hk-food.netlify.app", "http://localhost:3000") // Allow only your frontends
+                .allowedOriginPatterns("https://hk-food.netlify.app", "http://localhost:3000","https://hk-food-psi.vercel.app") // Allow only your frontends
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("Content-Type", "Authorization")
                 .exposedHeaders("Authorization")
