@@ -54,9 +54,7 @@ public class AppConfig {
             public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
 
                 CorsConfiguration cfg = new CorsConfiguration();
-                    cfg.setAllowedOriginPatterns(Arrays.asList(
-                            "http://localhost:3000",
-                            "https://hk-food-psi.vercel.app",
+                    cfg.setAllowedOrigins(Arrays.asList(
                             "https://hk-food.netlify.app"
                     ));
                 cfg.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
