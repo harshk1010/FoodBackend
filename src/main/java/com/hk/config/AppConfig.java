@@ -14,16 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-
-import java.util.Arrays;
-import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
-@EnableWebMvc
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class AppConfig {
 
@@ -33,44 +26,22 @@ public class AppConfig {
 
         http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(Authorize -> Authorize
-                                .requestMatchers("/public/**").permitAll()
-                        .requestMatchers("/api/auth/**").hasAnyAuthority("RESTAURANT_OWNER","ADMIN")
+                        .requestMatchers("/public/**").permitAll()
+                        .requestMatchers("/api/auth/**").hasAnyAuthority("RESTAURANT_OWNER", "ADMIN")
                         .requestMatchers("/api/**").authenticated()
                         .requestMatchers(HttpMethod.OPTIONS).permitAll()
                         .anyRequest().permitAll()
-
-
-                ).addFilterBefore(new JwtTokenValidator(), BasicAuthenticationFilter.class)
-                .csrf(csrf-> csrf.disable())
-                .cors(cors->cors.configurationSource(corsConfigrationSource()));
+                )
+                .addFilterBefore(new JwtTokenValidator(), BasicAuthenticationFilter.class)
+                .csrf(csrf -> csrf.disable())
+                // No need to add CORS settings here since CorsConfig already handles it
+        ;
 
         return http.build();
     }
 
-    private CorsConfigurationSource corsConfigrationSource() {
-
-        return new CorsConfigurationSource() {
-            @Override
-            public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-
-                CorsConfiguration cfg = new CorsConfiguration();
-                    cfg.setAllowedOrigins(Arrays.asList(
-                            "https://hk-food.netlify.app"
-                    ));
-                cfg.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-                cfg.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
-                    cfg.setAllowCredentials(true);
-                    cfg.setExposedHeaders(Arrays.asList("Authorization"));
-                    cfg.setMaxAge(3600L);
-                return cfg;
-                    
-            }
-        };
-    }
-
     @Bean
     PasswordEncoder passwordEncoder() {
-
         return new BCryptPasswordEncoder();
     }
 }
