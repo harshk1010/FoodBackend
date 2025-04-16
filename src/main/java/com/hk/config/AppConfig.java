@@ -56,7 +56,7 @@ public class AppConfig {
                     CorsConfiguration cfg = new CorsConfiguration();
                     cfg.setAllowedOrigins(Arrays.asList(
                             "http://localhost:3000",
-                            "https://hk-food-topaz.vercel.app/"
+                            "https://hk-food-psi.vercel.app/"
                     ));
                 cfg.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                 cfg.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
