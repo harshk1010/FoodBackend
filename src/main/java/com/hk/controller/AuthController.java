@@ -25,7 +25,6 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "https://hk-food-psi.vercel.app/", allowCredentials = "true")
 public class AuthController {
 
     @Autowired
