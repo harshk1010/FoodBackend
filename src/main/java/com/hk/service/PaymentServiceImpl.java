@@ -30,8 +30,8 @@ public class PaymentServiceImpl implements PaymentService{
         SessionCreateParams params = SessionCreateParams.builder().addPaymentMethodType
                 (SessionCreateParams.PaymentMethodType.CARD)
                 .setMode(SessionCreateParams.Mode.PAYMENT)
-                .setSuccessUrl("http://localhost:3000/payment/success/"+order.getId())
-                .setCancelUrl("http://localhost:3000/payment/fail")
+                .setSuccessUrl("hk-food-psi.vercel.app/payment/success/"+order.getId())
+                .setCancelUrl("hk-food-psi.vercel.app/payment/fail")
                 .addLineItem(SessionCreateParams.LineItem.builder()
                         .setQuantity(1L).setPriceData
                                 (SessionCreateParams.LineItem.PriceData.builder().setCurrency("usd")
